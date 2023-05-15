@@ -27,6 +27,9 @@ jobs:
 
   cli-tests:
     runs-on: ubuntu-latest
+    container:
+      image: docker:stable
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -43,7 +46,6 @@ jobs:
           echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
           sudo apt-get update && sudo apt-get -y install terraform docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-          dockerd-rootless-setuptool.sh install
 
       - uses: actions/setup-python@v4
         with:
