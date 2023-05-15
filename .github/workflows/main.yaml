@@ -66,5 +66,5 @@ jobs:
 
       - name: BlindBox init
         run: |
-          blindbox init
+          blindbox --platform azure-sev init
           ls -l
