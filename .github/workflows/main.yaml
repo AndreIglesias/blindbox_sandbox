@@ -59,8 +59,8 @@ jobs:
       - name: Build image
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ai_server_example/Dockerfile
+          context: ai_server_example/
+          file: Dockerfile
           push:	false
           tags: myimage:latest
 
