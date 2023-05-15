@@ -60,7 +60,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ai_server_example/
-          file: Dockerfile
+          file: ai_server_example/Dockerfile
           push:	false
           tags: myimage:latest
 
