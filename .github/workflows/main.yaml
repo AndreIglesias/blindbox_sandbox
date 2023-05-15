@@ -51,7 +51,6 @@ jobs:
           cd client
           python -m pip install --upgrade build && python -m build --wheel
           python -m pip install dist/$(ls dist)
-          ls -l ../ai_server_example
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -65,6 +64,7 @@ jobs:
           tags: myimage:latest
 
       - name: BlindBox init
-        run: |
-          blindbox --platform azure-sev init
-          ls -l
+        run: blindbox --platform azure-sev init
+
+      - name: BlindBox build
+        run: blindbox build -t myimage-blindbox:v1 --source-image myimage
