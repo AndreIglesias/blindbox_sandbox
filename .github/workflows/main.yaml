@@ -1,0 +1,70 @@
+name: Main Tests
+
+on: push
+
+jobs:
+  requests-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          apt update && apt -y install lsb-release
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 'pypy3.9'
+
+      - name: Install pypi dependencies
+        run: |
+          python -m pip install --upgrade pip && python -m pip install aiohttp requests
+
+      - name: Testing requests API
+        run: |
+          python ./client/blindbox/tests/demo_server.py & sleep 1
+          export PYTHONPATH=$PWD/client:$PYTHONPATH && cd ./client/blindbox/tests/ && python session.py
+
+  cli-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          apt-get update && apt-get -y install wget gpg lsb-release
+          wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list
+
+          apt update && apt -y install terraform
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 'pypy3.9'
+
+      - name: Install pypi dependencies
+        run: |
+          python -m pip install --upgrade pip && python -m pip install pydantic inquirer rich pyyaml
+
+      - name: Client build
+        run: |
+          cd client
+          python -m pip install --upgrade build && python -m build --wheel
+          python -m pip install dist/$(ls dist)
+          ls -l ../ai_server_example
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ai_server_example/Dockerfile
+          push:	false
+          tags: myimage:latest
+
+      - name: BlindBox init
+        run: |
+          blindbox init
+          ls -l
