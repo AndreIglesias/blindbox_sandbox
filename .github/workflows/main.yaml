@@ -94,6 +94,6 @@ jobs:
 
       - name: Run tests
         run: |
-          client/blindbox/
+          cd client/blindbox/
           python -m coverage run -m unittest command/tests.py
           python -m coverage xml
