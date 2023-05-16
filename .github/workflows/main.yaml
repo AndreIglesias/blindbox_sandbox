@@ -45,28 +45,31 @@ jobs:
 
           sudo apt-get update && sudo apt-get -y install terraform docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-      #- uses: actions/setup-python@v4
-        #with:
-          #python-version: 'pypy3.9'
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 'pypy3.9'
 
-      #- name: Install pypi dependencies
-        #run: |
-          #python -m pip install --upgrade pip && python -m pip install pydantic inquirer rich pyyaml
+      - name: Install pypi dependencies
+        run: |
+          python -m pip install --upgrade pip && python -m pip install pydantic inquirer rich pyyaml
 
-      #- name: Client build
-        #run: |
-          #cd client
-          #python -m pip install --upgrade build && python -m build --wheel
-          #python -m pip install dist/$(ls dist)
+      - name: Client build
+        run: |
+          cd client
+          python -m pip install --upgrade build && python -m build --wheel
+          python -m pip install dist/$(ls dist)
 
-      - name: BlindBox init
+      - name: Image build
         run: |
           cd  ai_server_example/
           docker build	-t myimage:latest .
-          mkdir blindbox_myimage && cd blindbox_myimage
-          #blindbox --platform azure-sev init
+
+      - name: BlindBox init
+        run: |
+          mkdir build && cd build
+          blindbox --platform azure-sev init
 
       - name: BlindBox build
         run:
-          docker images
-          #blindbox build -t myimage-blindbox:v1 --source-image myimage
+          cd build
+          blindbox build -t myimage-blindbox:v1 --source-image myimage
