@@ -74,7 +74,7 @@ jobs:
         run: |
           cd  ai_server_example/
           sudo docker build	-t myimage:latest .
-		  sudo docker images
+          sudo docker images
           blindbox --platform azure-sev init
 
       - name: BlindBox build
