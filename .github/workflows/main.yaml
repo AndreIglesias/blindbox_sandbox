@@ -70,6 +70,6 @@ jobs:
           blindbox --platform azure-sev init
 
       - name: BlindBox build
-        run:
+        run: |
           cd build
           blindbox build -t myimage-blindbox:v1 --source-image myimage
