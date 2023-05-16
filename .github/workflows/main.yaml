@@ -71,7 +71,7 @@ jobs:
           tags: myimage:latest
 
       - name: BlindBox init
-        run: blindbox --platform azure-sev init
+        run: sudo docker images && blindbox --platform azure-sev init
 
       - name: BlindBox build
         run: blindbox build -t myimage-blindbox:v1 --source-image myimage
