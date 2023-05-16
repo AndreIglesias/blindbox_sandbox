@@ -27,8 +27,6 @@ jobs:
 
   cli-tests:
     runs-on: ubuntu-latest
-    container:
-      image: docker:stable
 
     steps:
       - name: Checkout
