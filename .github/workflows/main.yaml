@@ -83,7 +83,10 @@ jobs:
           blindbox build -t myimage-blindbox:v1 --source-image myimage
           ls -l
 
-        continue-on-error: ${{ matrix.python-version != '3.9' }}
+      - name: Handle failures
+        if: ${{ job.status != 'success' }}
+        run: echo "Job failed, but workflow will continue"
+        continue-on-error: true
 
   coverage-tests:
     runs-on: ubuntu-latest
