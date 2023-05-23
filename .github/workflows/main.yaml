@@ -83,7 +83,7 @@ jobs:
           blindbox build -t myimage-blindbox:v1 --source-image myimage
           ls -l
 
-        continue-on-error: ${{ matrix.python-version == '3.9' }}
+        continue-on-error: ${{ matrix.python-version != '3.9' }}
 
   coverage-tests:
     runs-on: ubuntu-latest
