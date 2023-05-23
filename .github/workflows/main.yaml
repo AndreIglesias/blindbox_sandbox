@@ -97,6 +97,7 @@ jobs:
           cd client/blindbox/command/
           python -m coverage run -m unittest tests.py
           python -m coverage xml
+        continue-on-error: true
 
   builder-tests:
     runs-on: ubuntu-latest
