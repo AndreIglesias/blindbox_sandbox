@@ -5,6 +5,10 @@ on: push
 jobs:
   requests-tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11"]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -14,7 +18,7 @@ jobs:
           sudo apt-get update && sudo apt-get -y install lsb-release
       - uses: actions/setup-python@v4
         with:
-          python-version: 'pypy3.9'
+          python-version: ${{ matrix.python-version }}
 
       - name: Install pypi dependencies
         run: |
@@ -81,6 +85,10 @@ jobs:
 
   coverage-tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11"]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -90,7 +98,7 @@ jobs:
           sudo apt-get update && sudo apt-get -y install lsb-release
       - uses: actions/setup-python@v4
         with:
-          python-version: 'pypy3.9'
+          python-version: ${{ matrix.python-version }}
 
       - name: Install pypi dependencies
         run: |
@@ -103,6 +111,10 @@ jobs:
           python -m coverage xml
 
   builder-tests:
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11"]
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -113,7 +125,7 @@ jobs:
           sudo apt-get update && sudo apt-get -y install lsb-release
       - uses: actions/setup-python@v4
         with:
-          python-version: 'pypy3.9'
+          python-version: ${{ matrix.python-version }}
 
       - name: Install pypi dependencies
         run: |
