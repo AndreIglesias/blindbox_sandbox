@@ -54,7 +54,7 @@ jobs:
 
       - name: Install pypi dependencies
         run: |
-          python -c "import sys; print("Python version:", sys.version)"
+          python -c "import sys; print('Python version:', sys.version)"
           python -m pip install --upgrade pip && python -m pip install pydantic inquirer rich pyyaml
 
       - name: Client build
