@@ -76,14 +76,13 @@ jobs:
         run: |
           mkdir build && cd build
           blindbox --platform azure-sev init
+        continue-on-error: true
 
       - name: BlindBox build
         run: |
           cd build
           blindbox build -t myimage-blindbox:v1 --source-image myimage
           ls -l
-
-        continue-on-error: true
 
   coverage-tests:
     runs-on: ubuntu-latest
