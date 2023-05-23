@@ -83,9 +83,6 @@ jobs:
           blindbox build -t myimage-blindbox:v1 --source-image myimage
           ls -l
 
-      - name: Handle failures
-        if: ${{ job.status != 'success' }}
-        run: echo "Job failed, but workflow will continue"
         continue-on-error: true
 
   coverage-tests:
