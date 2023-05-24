@@ -375,8 +375,9 @@ class AWSNitroBuilder(BlindBoxBuilder):
     def build(self, *, build_directory: str, docker_image: str, **_kw):
         pass
 
-
+parser = None
 def main():
+    global parser
     parser = argparse.ArgumentParser(description="Parser for the builder cli")
     parser.add_argument("--cwd", "-C", help="manually specify the project root")
     parser.add_argument(
