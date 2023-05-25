@@ -14,7 +14,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt update && apt -y install lsb-release
+          sudo apt update && sudo apt -y install lsb-release
 
       - name: Setup Python
         uses: actions/setup-python@v4
