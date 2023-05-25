@@ -83,7 +83,8 @@ jobs:
           mkdir build && cd build
           blindbox --platform azure-sev init
           blindbox build -t whisper-blindbox:v1 --source-image whisper
-          cat blindbox.tf && cat blindbox.yml
+          echo -e "Blindbox.tf Terraform\n" && cat blindbox.tf
+          echo -e "Blindbox.yml YAML\n" && cat blindbox.yml
 
       - name: Hello-world blindbox init
         run: |
@@ -92,7 +93,8 @@ jobs:
           mkdir build && cd build
           blindbox --platform azure-sev init
           blindbox build -t helloworld-blindbox:v1 --source-image helloworld
-          cat blindbox.tf && cat blindbox.yml
+          echo -e "Blindbox.tf Terraform\n" && cat blindbox.tf
+          echo -e "Blindbox.yml YAML\n" && cat blindbox.yml
 
       - name: Santacoder blindbox init
         run: |
@@ -101,20 +103,8 @@ jobs:
           mkdir build && cd build
           blindbox --platform azure-sev init
           blindbox build -t santacoder-blindbox:v1 --source-image santacoder
-          cat blindbox.tf && cat blindbox.yml
-
-      - name: Execute BlindBox examples
-        run: |
-          for folder in examples/*/; do
-            cd "$folder"
-            image_name=$(basename "$folder" | tr -d '/')
-            docker build -t "$image_name":latest .
-            mkdir "build" && cd "build"
-            blindbox --platform azure-sev init
-            blindbox build -t "$image_name-blindbox:v1" --source-image "$image_name"
-            cat blindbox.tf && cat blindbox.yml
-            cd ../../
-          done
+          echo -e "Blindbox.tf Terraform\n" && cat blindbox.tf
+          echo -e "Blindbox.yml YAML\n" && cat blindbox.yml
 
   builder-tests:
     strategy:
