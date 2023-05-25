@@ -83,6 +83,41 @@ jobs:
           blindbox build -t myimage-blindbox:v1 --source-image myimage
           ls -l
 
+
+      - name: Image build
+        run: |
+          cd  examples/hello-world/
+          docker build	-t myimage1:latest .
+
+      - name: BlindBox init
+        run: |
+          mkdir build1 && cd build1
+          blindbox --platform azure-sev init
+
+      - name: BlindBox build
+        run: |
+          cd build
+          blindbox build -t myimage1-blindbox:v1 --source-image myimage1
+          ls -l
+
+
+      - name: Image build
+        run: |
+          cd  examples/santacoder/
+          docker build	-t myimage2:latest .
+
+      - name: BlindBox init
+        run: |
+          mkdir build2 && cd build2
+          blindbox --platform azure-sev init
+
+      - name: BlindBox build
+        run: |
+          cd build
+          blindbox build -t myimage2-blindbox:v1 --source-image myimage2
+          ls -l
+
+
   coverage-tests:
     runs-on: ubuntu-latest
     strategy:
