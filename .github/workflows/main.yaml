@@ -67,56 +67,32 @@ jobs:
           python -m pip install --upgrade build && python -m build --wheel
           python -m pip install dist/$(ls dist)
 
-      - name: Image build
+      - name: Whisper blindbox init
         run: |
-          cd  examples/whisper/
-          docker build	-t myimage:latest .
-
-      - name: BlindBox init
-        run: |
+          cd examples/whisper/
+          docker build -t whisper:latest .
           mkdir build && cd build
           blindbox --platform azure-sev init
+          blindbox build -t whisper-blindbox:v1 --source-image whisper
+          cat blindbox.tf && cat blindbox.yml
 
-      - name: BlindBox build
+      - name: Hello-world blindbox init
         run: |
-          cd build
-          blindbox build -t myimage-blindbox:v1 --source-image myimage
-          ls -l
-
-
-      - name: Image build
-        run: |
-          cd  examples/hello-world/
-          docker build	-t myimage1:latest .
-
-      - name: BlindBox init
-        run: |
-          mkdir build1 && cd build1
+          cd examples/hello-world/
+          docker build -t helloworld:latest .
+          mkdir build && cd build
           blindbox --platform azure-sev init
+          blindbox build -t helloworld-blindbox:v1 --source-image helloworld
+          cat blindbox.tf && cat blindbox.yml
 
-      - name: BlindBox build
+      - name: Santacoder blindbox init
         run: |
-          cd build
-          blindbox build -t myimage1-blindbox:v1 --source-image myimage1
-          ls -l
-
-
-      - name: Image build
-        run: |
-          cd  examples/santacoder/
-          docker build	-t myimage2:latest .
-
-      - name: BlindBox init
-        run: |
-          mkdir build2 && cd build2
+          cd examples/santacoder/
+          docker build -t santacoder:latest .
+          mkdir build && cd build
           blindbox --platform azure-sev init
-
-      - name: BlindBox build
-        run: |
-          cd build
-          blindbox build -t myimage2-blindbox:v1 --source-image myimage2
-          ls -l
-
+          blindbox build -t santacoder-blindbox:v1 --source-image santacoder
+          cat blindbox.tf && cat blindbox.yml
 
   coverage-tests:
     runs-on: ubuntu-latest
