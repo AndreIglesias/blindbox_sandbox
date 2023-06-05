@@ -85,7 +85,6 @@ jobs:
           blindbox build -t whisper-blindbox:v1 --source-image whisper
           echo -e "Blindbox.tf Terraform\n" && cat blindbox.tf
           echo -e "Blindbox.yml YAML\n" && cat blindbox.yml
-          blindbox deploy whisper-blindbox:v1
 
       - name: Hello-world blindbox init
         run: |
