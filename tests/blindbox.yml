@@ -1,0 +1,4 @@
+dns_ip_rules:
+- 168.63.129.16
+ip_rules: []
+platform: azure-sev
