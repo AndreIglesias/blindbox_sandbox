@@ -14,10 +14,10 @@ with SecureSession(f"http://{SERVER_URL}:{SERVER_PORT}", "./cce_policy.txt", "sa
     print(res.text)
 
 
-res = requests.post(url=f"http://{SERVER_URL}:{SERVER_PORT}/enclave/predict", "./cce_policy.txt", files={"audio": open("test.wav", "rb")})
+res = requests.post(url=f"http://{SERVER_URL}:{SERVER_PORT}/enclave/predict", cce_policy="./cce_policy.txt", files={"audio": open("test.wav", "rb")})
 print(res.status_code)
 print(res.text)
 
-res = requests.get(url=f"http://{SERVER_URL}:{SERVER_PORT}/enclave", "./cce_policy.txt")
+res = requests.get(f"http://{SERVER_URL}:{SERVER_PORT}/enclave", "./cce_policy.txt")
 print(res.status_code)
 print(res.text)
