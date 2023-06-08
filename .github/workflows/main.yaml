@@ -29,7 +29,6 @@ jobs:
 
       - name: Testing requests API
         run: |
-          cp ./examples/hello-world/cce_policy.txt ./client/blindbox/tests/
           python ./client/blindbox/tests/demo_server.py & sleep 1
           export PYTHONPATH=$PWD/client:$PYTHONPATH && cd ./client/blindbox/tests/ && python session.py
 
