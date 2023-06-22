@@ -3,21 +3,19 @@ import time
 import unittest
 import shutil
 import yaml
+import multiprocessing
+import signal
 from coverage import coverage
 from unittest.mock import patch, MagicMock, ANY
-from blindbox import requests
-
-import multiprocessing, signal
 
 from blindbox.command.builder import (
     BlindBoxBuilder,
     BlindBoxYml,
     AzureSEVBuilder,
     error_exit,
-    export_docker_image,
 )
 
-class TestBlindBox(unittest.TestCase):
+class TestBlindBoxBuilder(unittest.TestCase):
 
     def test_error_exit(self):
         with patch('builtins.exit') as mock_exit:
@@ -49,7 +47,6 @@ class TestBlindBox(unittest.TestCase):
         self.assertTrue(os.path.exists(test_folder + "/blindbox.yml"))
         self.assertTrue(os.path.exists(test_folder + "/blindbox.tf"))
         shutil.rmtree(test_folder)
-    '''
 
     def test_yes_no_question(self):
         def run_child_process():
@@ -64,6 +61,7 @@ class TestBlindBox(unittest.TestCase):
         os.kill(process.pid, signal.SIGINT)
 
         process.join()
+    '''
 
     def test_yes_no_question_interactive_mode(self):
         builder = BlindBoxBuilder()
@@ -140,6 +138,7 @@ class TestBlindBox(unittest.TestCase):
             file_content = file.read()
         expected_content = yaml.safe_dump(settings.dict(), encoding='utf-8')
         self.assertEqual(file_content, expected_content.decode('utf-8'))
+        os.remove(file_path)
 
     def test_get_project_settings(self):
         builder = BlindBoxBuilder()
