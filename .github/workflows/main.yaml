@@ -1,6 +1,10 @@
 name: Main Tests
 
-on: push
+on:
+  push:
+    paths:
+      - 'client/**'
+      - 'examples/**'
 
 jobs:
   coverage-tests:
