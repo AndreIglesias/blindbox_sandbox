@@ -36,10 +36,10 @@ jobs:
           python -m coverage xml
 
       - name: Coverage report
-        uses: orgoro/coverage@v3
+        uses: devops-infra/action-commit-push@master
         with:
-          coverageFile: client/coverage.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: Auto-sync coverage report
 
   cli-tests:
     runs-on: ubuntu-latest
