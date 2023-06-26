@@ -5,7 +5,7 @@ on:
     paths:
       - 'client/**'
       - 'examples/**'
-  workflow_dispatch
+  workflow_dispatch:
 
 jobs:
   coverage-tests:
