@@ -42,6 +42,7 @@ jobs:
           python -m coverage xml -o ./tests/coverage.xml
 
       - name: Coverage report
+        if: matrix.python-version == '3.9'
         uses: devops-infra/action-commit-push@master
         with:
           github_token: ${{ secrets.TOKEN }}
