@@ -5,6 +5,7 @@ on:
     paths:
       - 'client/**'
       - 'examples/**'
+  workflow_dispatch
 
 jobs:
   coverage-tests:
@@ -42,7 +43,7 @@ jobs:
       - name: Coverage report
         uses: devops-infra/action-commit-push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.TOKEN }}
           commit_message: Auto-sync coverage report
 
   cli-tests:
