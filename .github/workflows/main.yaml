@@ -6,7 +6,8 @@ on:
       - 'client/**'
       - 'examples/**'
   workflow_dispatch:
-
+permissions:
+  contents: write
 jobs:
   coverage-tests:
     runs-on: ubuntu-latest
